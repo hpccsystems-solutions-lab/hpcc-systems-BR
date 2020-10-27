@@ -1,0 +1,22 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "play-hthor-submit",
+      "type": "ecl",
+      "request": "launch",
+      "protocol": "http",
+      "serverAddress": "10.173.248.1",
+      "port": 8010,
+      "targetCluster": "hthor",
+      "rejectUnauthorized": false,
+      "resultLimit": 100,
+      "timeoutSecs": 60,
+      "user": "",
+      "password": ""
+    }
+  ]
+}
