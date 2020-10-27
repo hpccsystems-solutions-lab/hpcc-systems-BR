@@ -1,2 +1,2 @@
 # hpcc-systems-BR
-Brazil HPCC Lab
+Brazil HPCC workshop
