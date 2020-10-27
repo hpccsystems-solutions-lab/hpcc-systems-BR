@@ -1,2 +1,2 @@
 # hpcc-systems-BR
-Brazil HPCC workshop
+Brazil HPCC Systems workshop repo
