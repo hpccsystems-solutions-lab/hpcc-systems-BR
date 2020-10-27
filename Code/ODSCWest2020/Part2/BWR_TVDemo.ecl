@@ -15,12 +15,13 @@ Sentence := Types.Sentence;
 trainSentences := PROJECT($.File_Reviews.File[1..5000],TRANSFORM(Types.Sentence,
 																												SELF.sentID:=COUNTER,
 																												SELF.text:=LEFt.review_text)); //using Review comments										
-trainSentences;
+OUTPUT(trainSentences, NAMED('Training_data'));
 // Create a SentenceVectors instance.  Use default parameters.
 // Note that there are many parameters that can be set here, but all
 // are optional and default values usually work.
 
-sv := tv.SentenceVectors();
+sv := tv.SentenceVectors(,,100);
+// sv := tv.SentenceVectors();
 
 // Train and return the model, given your set of sentences
 model := sv.GetModel(trainSentences);
@@ -42,7 +43,7 @@ wordVecs := sv.GetWordVectors(model, testWords);
 sentVecs := sv.GetSentVectors(model, testSents);
 
 // Find the 3 closest words to each test word
-closestWords := sv.ClosestWords(model, testWords, 3);
+closestWords := sv.ClosestWords(model, testWords, 6);
 OUTPUT(closestWords,NAMED('Closest_words'));
 
 // Find the two closest sentences for each test sentence

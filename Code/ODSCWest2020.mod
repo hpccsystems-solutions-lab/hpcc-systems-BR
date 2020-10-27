@@ -1,4 +1,133 @@
-﻿//Import:ecl:ODSCWest2020.Part1.BWR_dashboard
+﻿//Import:ecl:ODSCWest2020.LangOverview.BWR_Hello
+// EXPORT BWR_Hello := 'todo';
+
+//Definition with string literal
+MyString := 'Hello World';
+
+//Action that displays the string in the workunit:
+OUTPUT(MyString);
+
+//OR
+
+Suffix := 'World';
+
+//Define a function
+STRING AddSuffix(STRING prefix) := prefix + ' ' + Suffix;
+
+myValue := AddSuffix('Hello');
+
+OUTPUT(myValue);
+
+//Import:ecl:ODSCWest2020.LangOverview.BWR_JOIN
+//Record definition of the file#1
+PersonRec := RECORD
+ UNSIGNED4 id;
+ STRING40  name;
+ STRING5   zip_code;
+END;
+
+// reference to the data within the file#1
+persondata := DATASET('~person_file',PersonRec,FLAT);
+
+//Record definition of the file#2
+ZipLookupRec := RECORD
+ STRING5  zip5;
+ STRING20 city;
+ STRING2  state;
+END;
+
+// reference to the data within the file#2
+zipdata := DATASET('~zip_lookup',ZipLookupRec,FLAT); 
+
+//Record definition of the merged file
+MergedRec := RECORD
+ UNSIGNED4 id;
+ STRING40  name;
+ STRING20  city;
+ STRING2   state;
+ STRING5   zip_code;
+END;
+
+//Definition of the logic do join files#1 and #2
+MergedRec MergePersonAndZip(personRec personinfo,ZipLookupRec zipinfo) := TRANSFORM
+ SELF := personinfo; //Copy all matching values from personinfo
+ SELF := zipinfo;    //Copy all matching values from zipinfo
+END;
+
+PersonAndZipInfo := JOIN(persondata,ZipData,
+												 LEFT.zip_code = RIGHT.zip5,
+												 MergePersonAndZip(LEFT,RIGHT),
+												 LEFT OUTER);
+
+//Output first 100 joined records
+OUTPUT(personandzipinfo,NAMED('MergedPersonInfo'));
+
+		
+//Import:ecl:ODSCWest2020.LangOverview.BWR_PersonByZip
+//Record definition of the file
+PersonRec := RECORD
+ UNSIGNED4 id;
+ STRING40  name;
+ STRING5   zip_code;
+END;
+
+// reference to the data within the file
+persondata := DATASET('~person_file',PersonRec,FLAT);
+
+// Crosstab person per zipcode
+ZipPeopleCount := TABLE(persondata,
+  											{zip_code,UNSIGNED4 num_people := COUNT(GROUP)},
+												zip_code,MERGE);
+
+// Sort the output in descending order		 
+OUTPUT(SORT(ZipPeopleCount,-num_people),NAMED('NumPeopleInEachZipCode'));		 
+//Import:ecl:ODSCWest2020.LangOverview.BWR_RECORDandDATASET
+//Record definition of the file
+PersonRec := RECORD
+ UNSIGNED4 id;
+ STRING40  name;
+ STRING5   zip_code;
+END;
+
+//Reference to the data within the file
+persondata := DATASET('~person_file',PersonRec,FLAT);
+	
+//Output first 100 records
+OUTPUT(persondata,NAMED('PersonSample'));
+
+//Filter persons by zipcode
+onezip:= persondata(zip_code = '60505');
+OUTPUT(onezip,NAMED('Zip60505'));
+	
+	
+//Import:ecl:ODSCWest2020.LangOverview.BWR_TRANSFORMandPROJECT
+IMPORT STD;
+//Record definition of the file
+PersonRec := RECORD
+ UNSIGNED4 id;
+ STRING40  name;
+ STRING5   zip_code;
+END;
+
+// reference to the data within the file
+persondata := DATASET('~person_file',PersonRec,FLAT);
+	
+//Output first 100 records
+OUTPUT(persondata, NAMED('PersonSample'));
+	
+//Define a transform that uppercases all names
+PersonRec UppercaseName(PersonRec rec) := TRANSFORM
+ SELF.name := STD.STR.ToUpperCase(rec.name);
+ SELF := rec;
+END;
+uppercasePersons := PROJECT(persondata, UpperCaseName(LEFT));
+
+//Output first 100 records in UPPERCASE
+OUTPUT(uppercasePersons, NAMED('UpperCasePersonSample'));
+
+ 
+	
+//Import:ecl:ODSCWest2020.Part1.BWR_dashboard
 #WORKUNIT('name', 'hpcc-viz-SimpleDashboard');
 IMPORT $,Visualizer;
 
@@ -33,145 +162,6 @@ properties := DATASET([ {'xAxisType', 'time'},
 
 Visualizer.MultiD.Area('myLine',, 'Sales', mappings, filter, properties);
 
-//Import:ecl:ODSCWest2020.Part1.BWR_Hello
-// EXPORT BWR_Hello := 'todo';
-
-//Definition with string literal
-MyString := 'Hello World';
-
-//Action that displays the string in the workunit:
-OUTPUT(MyString);
-
-//OR
-
-Suffix := 'World';
-
-//Define a function
-STRING AddSuffix(STRING prefix) := prefix + ' ' + Suffix;
-
-myValue := AddSuffix('Hello');
-
-OUTPUT(myValue);
-
-//Import:ecl:ODSCWest2020.Part1.BWR_JOIN
-PersonRec := RECORD
- UNSIGNED4 id;
- STRING40  name;
- STRING5   zip_code;
-END;
-
-// reference to the data within the file
-persondata := DATASET('~person_file',PersonRec,FLAT);
-
-ZipLookupRec := RECORD
- STRING5  zip5;
- STRING20 city;
- STRING2  state;
-END;
-
-zipdata := DATASET('~zip_lookup',ZipLookupRec,FLAT); 
-
-MergedRec := RECORD
- UNSIGNED4 id;
- STRING40  name;
- STRING20  city;
- STRING2   state;
- STRING5   zip_code;
-END;
-
-MergedRec MergePersonAndZip(personRec personinfo,ZipLookupRec zipinfo) := TRANSFORM
- SELF := personinfo; //Copy all matching values from personinfo
- SELF := zipinfo;    //Copy all matching values from zipinfo
-END;
-
-PersonAndZipInfo := JOIN
-  (
-	   persondata,
-    ZipData,
-    LEFT.zip_code = RIGHT.zip5,
-    MergePersonAndZip(LEFT,RIGHT),
-    LEFT OUTER
-		);
-		
-OUTPUT(personandzipinfo,NAMED('MergedPersonInfo'));
-
-		
-//Import:ecl:ODSCWest2020.Part1.BWR_PersonByZip
-PersonRec := RECORD
- UNSIGNED4 id;
- STRING40  name;
- STRING5   zip_code;
-END;
-
-// reference to the data within the file
-persondata := DATASET('~person_file',PersonRec,FLAT);
-
-ZipPeopleCount := TABLE
-   (
-	    persondata,
-			 {
-      zip_code,
-      UNSIGNED4 num_people := COUNT(GROUP)
-     },
-     zip_code,
-     MERGE
-		 );
-		 
-OUTPUT(SORT(ZipPeopleCount,-num_people), NAMED('NumPeopleInEachZipCode'));		 
-//Import:ecl:ODSCWest2020.Part1.BWR_RECORDandDATASET
-//Record definition of the file
-PersonRec := RECORD
- UNSIGNED4 id;
- STRING40  name;
- STRING5   zip_code;
-END;
-
-// reference to the data within the file
-persondata := DATASET
-  (
-	   '~person_file',
-		  PersonRec,
-			 FLAT
-  );
-	
-	//Output first 100 records
-	OUTPUT(persondata, NAMED('PersonSample'));
-	
-	onezip:= persondata(zip_code = '60505');
-	OUTPUT(onezip,NAMED('Zip60505'));
-	
-	
-//Import:ecl:ODSCWest2020.Part1.BWR_TRANSFORMandPROJECT
-IMPORT STD;
-//Record definition of the file
-PersonRec := RECORD
- UNSIGNED4 id;
- STRING40  name;
- STRING5   zip_code;
-END;
-
-// reference to the data within the file
-persondata := DATASET
-  (
-	   '~person_file',
-		  PersonRec,
-			 FLAT
-  );
-	
-	//Output first 100 records
-	OUTPUT(persondata, NAMED('PersonSample'));
-	
-//Define a transform that uppercases all names
-PersonRec UppercaseName(PersonRec rec) := TRANSFORM
- SELF.name := STD.STR.ToUpperCase(rec.name);
- SELF := rec;
-END;
-
-uppercasePersons := PROJECT(persondata, UpperCaseName(LEFT));
-OUTPUT(uppercasePersons, NAMED('UpperCasePersonSample'));
-
- 
-	
 //Import:ecl:ODSCWest2020.Part1.BWR_ViewData
 IMPORT $, STD;
 
@@ -182,7 +172,7 @@ OUTPUT($.File_Property.File,NAMED('Raw_data'));
 // OUTPUT(STD.DataPatterns.Profile($.File_Property.File),ALL,NAMED('Profiled_data'));
 OUTPUT($.File_Property.File,,'~WKSHOP::ODSCWest2020::XXX::PropertyDP',OVERWRITE,NAMED('Disk_output'));
 
-//Marketing view (aggr. price value from Property in small streets)
+//Marketing view (aggr. price value from properties in small streets)
 OUTPUT($.PropValSmallStreet,NAMED('Small_street_prop'));
 
 //Graphical view (avg. property price across US states)
@@ -190,7 +180,8 @@ OUTPUT($.XTAB_PriceState,NAMED('Prop_price_per_st'));
 
 //Import:ecl:ODSCWest2020.Part1.File_Property
 EXPORT File_Property := MODULE
-EXPORT Layout := RECORD
+//Record definition of the file
+	EXPORT Layout := RECORD
    UNSIGNED8 personid;
    INTEGER8  propertyid;
    STRING10  house_number;
@@ -213,10 +204,12 @@ EXPORT Layout := RECORD
    UNSIGNED2 half_baths;
    UNSIGNED2 year_built;
   END;
-EXPORT File := DATASET('~WKSHOP::ODSCWest2020::XXX::property',Layout,THOR);
+	//Reference to the data within the file
+	EXPORT File := DATASET('~WKSHOP::ODSCWest2020::XXX::property',Layout,THOR);
  END;
 
 //Import:ecl:ODSCWest2020.Part1.IsValidAmount
+// Function to verify if the amount is a valid value
 EXPORT IsValidAmount(integer amt) := amt BETWEEN 1 AND 9999998;
 
 //Import:ecl:ODSCWest2020.Part1.PropValSmallStreet
@@ -8721,8 +8714,10 @@ END;
 //Import:ecl:ODSCWest2020.Part1.XTab_PriceState
 IMPORT $;
 
+// reference to the data within another definition 
 Property := $.File_Property.File;
 
+//Crosstab property average price per state 
 OutRec := RECORD
 	Property.state;
 	UNSIGNED4 avg_value := AVE(GROUP,Property.total_value);
@@ -8739,8 +8734,10 @@ EXPORT XTAB_PriceState := TABLE(Property,OutRec,state);
 //Import:ecl:ODSCWest2020.Part2.BWR_ParseReviews
 IMPORT $;
 
+//Reference your dataset definition
 datafile	:=	$.File_Reviews.File;
 
+//Define your PATTERNS, TOKENS and RULES
 PATTERN ws          := ' ';
 PATTERN alpha				:= PATTERN('[a-zA-Z]');
 PATTERN preposition := ['a','the','and','to','both','for','by','until','with'];
@@ -8755,13 +8752,16 @@ TOKEN substantive   := alpha alpha+;
 PATTERN adjective   := alpha alpha+ OPT(ws preposition) OPT(ws adverb) OPT(ws alpha+);	
 RULE compliment     := substantive ws verb ws adjective ;
 
+//Define your output record structure
 results := {UNSIGNED4 prop_id 	:=  datafile.property_id; 
 						STRING subst				:=  MATCHTEXT(substantive);
 						STRING verb_prep_adv:=  MATCHTEXT(verb);  	              
 						STRING adjct  			:=  MATCHTEXT(adjective)};
 	             
+// Define your PARSE function
 outfile := PARSE(datafile,review_text,compliment,results);
 
+//Output the first 100 records
 OUTPUT(outfile,NAMED('Parsed_data'));
 
 //Import:ecl:ODSCWest2020.Part2.BWR_RawData
@@ -8788,12 +8788,13 @@ Sentence := Types.Sentence;
 trainSentences := PROJECT($.File_Reviews.File[1..5000],TRANSFORM(Types.Sentence,
 																												SELF.sentID:=COUNTER,
 																												SELF.text:=LEFt.review_text)); //using Review comments										
-trainSentences;
+OUTPUT(trainSentences, NAMED('Training_data'));
 // Create a SentenceVectors instance.  Use default parameters.
 // Note that there are many parameters that can be set here, but all
 // are optional and default values usually work.
 
-sv := tv.SentenceVectors();
+sv := tv.SentenceVectors(,,100);
+// sv := tv.SentenceVectors();
 
 // Train and return the model, given your set of sentences
 model := sv.GetModel(trainSentences);
@@ -8815,7 +8816,7 @@ wordVecs := sv.GetWordVectors(model, testWords);
 sentVecs := sv.GetSentVectors(model, testSents);
 
 // Find the 3 closest words to each test word
-closestWords := sv.ClosestWords(model, testWords, 3);
+closestWords := sv.ClosestWords(model, testWords, 6);
 OUTPUT(closestWords,NAMED('Closest_words'));
 
 // Find the two closest sentences for each test sentence
@@ -8840,6 +8841,7 @@ OUTPUT(trainingStats,NAMED('Training_stats'));
 
 //Import:ecl:ODSCWest2020.Part2.File_Reviews
 EXPORT File_Reviews := MODULE
+//Record definition of the file
 	EXPORT Layout := RECORD
 		UNSIGNED4 Property_id;
 		UNSIGNED4 Review_id;
@@ -8848,6 +8850,7 @@ EXPORT File_Reviews := MODULE
 		STRING Reviewer_name;
 		STRING Review_text;
 	END;
+//Reference to the data within the file
 	EXPORT File := DATASET('~WKSHOP::ODSCWest2020::XXX::Reviews',
 													Layout,CSV(SEPARATOR(','),HEADING(1)));
 END;
@@ -8857,6 +8860,7 @@ IMPORT ML_Core;
 IMPORT LearningTrees AS LT;
 IMPORT $;
 
+// Reference your training and test dataset´s
 myDepTrainData := $.Convert02.myDepTrainDataNF;
 myDepTestData  := $.Convert02.myDepTestDataNF;
 myIndTrainData := $.Convert02.myIndTrainDataNF;
@@ -8865,11 +8869,16 @@ myDepTrainDataDF := Discretize.ByRounding(myDepTrainData);
 myDepTestDataDF  := Discretize.ByRounding(myDepTestData);
 // OUTPUT(myDepTrainDataDF);
 
+// Define your leaner
 myLearnerC := LT.ClassificationForest();
+
+// Train your model
 myModelC := myLearnerC.GetModel(myIndTrainData, myDepTrainDataDF); 
 
-// Notice second param uses the DiscreteField dataset
+// Test your model
 predictedClasses := myLearnerC.Classify(myModelC, myIndTestData);
+
+// Assess your model
 assessmentC := ML_Core.Analysis.Classification.Accuracy(predictedClasses, myDepTestDataDF); 
 
 // Both params are DF dataset
@@ -8883,33 +8892,54 @@ IMPORT LearningTrees AS LT;
 IMPORT ML_Core;
 IMPORT $;
 
+// Define your learning algorithm
 myLearnerR2    := LT.RegressionForest(,,,[1]); 
+
+// Train your model
 myModelR2      := myLearnerR2.GetModel($.Convert02.myIndTrainDataNF, $.Convert02.myDepTrainDataNF);
+
+// Test your model
 predictedDeps2 := myLearnerR2.Predict(myModelR2, $.Convert02.myIndTestDataNF);
 OUTPUT(predictedDeps2,NAMED('Predicted_prices'));
+
+// Assess your model
 assessmentR2   := ML_Core.Analysis.Regression.Accuracy(predictedDeps2, $.Convert02.myDepTestDataNF);
 OUTPUT(assessmentR2,NAMED('Model_assess'));
 
 //Import:ecl:ODSCWest2020.Part3.BWR_ViewPrepData
 IMPORT $;
+
+// View your cleaned dataset
 OUTPUT($.Prep01.myDataE,NAMED('CleanProperty'));
 COUNT($.Prep01.myDataE);
+
+// View your training dataset
 OUTPUT($.Prep01.myTrainData,NAMED('TrainData'));
 COUNT($.Prep01.myTrainData);
+
+// View your test dataset
 OUTPUT($.Prep01.myTestData,NAMED('TestData'));
 COUNT($.Prep01.myTestData);
+
+// View your dependent and indenpendent variables (training dataset)
 OUTPUT($.Convert02.myIndTrainDataNF,NAMED('IndTrainData'));
 OUTPUT($.Convert02.myDepTrainDataNF,NAMED('DepTrainData'));
 
 //Import:ecl:ODSCWest2020.Part3.Convert02
 IMPORT $;
 IMPORT ML_Core;
+
+// Reference your training and test datasets
 myTrainData := $.Prep01.myTrainData;
 myTestData  := $.Prep01.myTestData;
+
+// Convert your datasets to matrix format
 ML_Core.ToField(myTrainData, myTrainDataNF);
 ML_Core.ToField(myTestData, myTestDataNF);
 // myTrainDataNF;
 // myTestDataNF;
+
+// Label the field containing the dependent variable to '1' (optional)
 EXPORT Convert02 := MODULE
 		
 		EXPORT myIndTrainDataNF := myTrainDataNF(number < 10); // Number is the field number
@@ -8927,6 +8957,7 @@ END;
 
 //Import:ecl:ODSCWest2020.Part3.File_Property
 EXPORT File_Property := MODULE
+// Define your raw record structure
 EXPORT Layout := RECORD
    UNSIGNED8 personid;
    INTEGER8  propertyid;
@@ -8950,7 +8981,10 @@ EXPORT Layout := RECORD
    UNSIGNED2 half_baths;
    UNSIGNED2 year_built;
   END;
+// Define your dataset
 EXPORT File := DATASET('~WKSHOP::ODSCWest2020::XXX::property',Layout,THOR);
+
+// Define the record structure for the numeric fields
 EXPORT MLProp := RECORD
    UNSIGNED8 PropertyID;
    UNSIGNED3 zip; //qualitative
@@ -8974,13 +9008,17 @@ END;
 
 //Import:ecl:ODSCWest2020.Part3.Prep01
 IMPORT $;
+// Reference your working data 
 Property := $.File_Property.File;
 ML_Prop  := $.File_Property.MLProp;
+
 EXPORT Prep01 := MODULE
+			// Filter out zero and null field values
 			CleanFilter := Property.zip <> '' AND Property.assessed_value <> 0 AND Property.year_acquired <> 0 AND 
 										 Property.land_square_footage <> 0 AND Property.living_square_feet <> 0 AND 
 										 Property.bedrooms <> 0 AND Property.year_Built <> 0;
 			
+			// Randomize your data
 			MLPropExt := RECORD(ML_Prop)
 				UNSIGNED4 rnd; 
 			END;
@@ -8992,9 +9030,10 @@ EXPORT Prep01 := MODULE
 																																 :PERSIST('~WKSHOP::ODSCWest2020::XXX::PrepProp');
 		
 			SHARED myDataES := SORT(myDataE, rnd);
+			// Extract the first 5000 records as your training data
 			EXPORT myTrainData := PROJECT(myDataES[1..5000], ML_Prop)
 																		:PERSIST('~WKSHOP::ODSCWest2020::XXX::Train');  
-			
+			// Extract the next 2000 records as your test data
 			EXPORT myTestData  := PROJECT(myDataES[5001..7000], ML_Prop)
 																		:PERSIST('~WKSHOP::ODSCWest2020::XXX::Test'); 
 END;

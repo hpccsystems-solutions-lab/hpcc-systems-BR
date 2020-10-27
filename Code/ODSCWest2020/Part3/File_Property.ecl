@@ -1,4 +1,5 @@
 ﻿EXPORT File_Property := MODULE
+// Define your raw record structure
 EXPORT Layout := RECORD
    UNSIGNED8 personid;
    INTEGER8  propertyid;
@@ -22,7 +23,10 @@ EXPORT Layout := RECORD
    UNSIGNED2 half_baths;
    UNSIGNED2 year_built;
   END;
+// Define your dataset
 EXPORT File := DATASET('~WKSHOP::ODSCWest2020::XXX::property',Layout,THOR);
+
+// Define the record structure for the numeric fields
 EXPORT MLProp := RECORD
    UNSIGNED8 PropertyID;
    UNSIGNED3 zip; //qualitative

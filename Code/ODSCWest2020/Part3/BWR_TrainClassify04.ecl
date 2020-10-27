@@ -3,6 +3,7 @@ IMPORT ML_Core;
 IMPORT LearningTrees AS LT;
 IMPORT $;
 
+// Reference your training and test dataset´s
 myDepTrainData := $.Convert02.myDepTrainDataNF;
 myDepTestData  := $.Convert02.myDepTestDataNF;
 myIndTrainData := $.Convert02.myIndTrainDataNF;
@@ -11,11 +12,16 @@ myDepTrainDataDF := Discretize.ByRounding(myDepTrainData);
 myDepTestDataDF  := Discretize.ByRounding(myDepTestData);
 // OUTPUT(myDepTrainDataDF);
 
+// Define your leaner
 myLearnerC := LT.ClassificationForest();
+
+// Train your model
 myModelC := myLearnerC.GetModel(myIndTrainData, myDepTrainDataDF); 
 
-// Notice second param uses the DiscreteField dataset
+// Test your model
 predictedClasses := myLearnerC.Classify(myModelC, myIndTestData);
+
+// Assess your model
 assessmentC := ML_Core.Analysis.Classification.Accuracy(predictedClasses, myDepTestDataDF); 
 
 // Both params are DF dataset

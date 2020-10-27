@@ -1,5 +1,6 @@
 ﻿EXPORT File_Property := MODULE
-EXPORT Layout := RECORD
+//Record definition of the file
+	EXPORT Layout := RECORD
    UNSIGNED8 personid;
    INTEGER8  propertyid;
    STRING10  house_number;
@@ -22,5 +23,6 @@ EXPORT Layout := RECORD
    UNSIGNED2 half_baths;
    UNSIGNED2 year_built;
   END;
-EXPORT File := DATASET('~WKSHOP::ODSCWest2020::XXX::property',Layout,THOR);
+	//Reference to the data within the file
+	EXPORT File := DATASET('~WKSHOP::ODSCWest2020::XXX::property',Layout,THOR);
  END;

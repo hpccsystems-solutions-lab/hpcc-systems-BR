@@ -7,7 +7,7 @@ OUTPUT($.File_Property.File,NAMED('Raw_data'));
 // OUTPUT(STD.DataPatterns.Profile($.File_Property.File),ALL,NAMED('Profiled_data'));
 OUTPUT($.File_Property.File,,'~WKSHOP::ODSCWest2020::XXX::PropertyDP',OVERWRITE,NAMED('Disk_output'));
 
-//Marketing view (aggr. price value from Property in small streets)
+//Marketing view (aggr. price value from properties in small streets)
 OUTPUT($.PropValSmallStreet,NAMED('Small_street_prop'));
 
 //Graphical view (avg. property price across US states)
