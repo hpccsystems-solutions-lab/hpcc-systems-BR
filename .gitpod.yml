@@ -1,0 +1,5 @@
+image: hpccsystems/clienttools
+
+vscode:
+  extensions:
+    - hpcc-systems.ecl
