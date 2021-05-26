@@ -1,4 +1,6 @@
-image: hpccsystems/clienttools
+#image: hpccsystems/clienttools
+image:
+  file: .gitpod.Dockerfile
 
 vscode:
   extensions:
