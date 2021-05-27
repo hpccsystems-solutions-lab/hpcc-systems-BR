@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "play (https)",
+            "name": "playground",
             "type": "ecl",
             "request": "launch",
             "protocol": "https",
@@ -17,3 +17,4 @@
         }
     ]
 }
+
