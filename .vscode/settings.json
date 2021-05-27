@@ -1,5 +1,0 @@
-{
-    "ecl.launchConfiguration": "playground (hpcc-systems-BR)",
-    "ecl.targetCluster": {},
-    "ecl.eclccPath": "/opt/HPCCSystems/8.0.14/clienttools/bin/eclcc"
-}
