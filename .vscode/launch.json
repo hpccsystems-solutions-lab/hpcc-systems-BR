@@ -12,7 +12,7 @@
             "serverAddress": "play.hpccsystems.com",
             "port": 18010,
             "targetCluster": "thor",
-            "rejectUnauthorized": true,
+            "rejectUnauthorized": false,
             "resultLimit": 100,
             "timeoutSecs": 60,
             "user": "gitpod_user",
