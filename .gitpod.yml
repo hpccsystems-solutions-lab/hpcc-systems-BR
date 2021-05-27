@@ -4,4 +4,4 @@ image:
 
 vscode:
   extensions:
-    - hpcc-systems.ecl
+    - https://github.com/hpcc-systems/vscode-ecl/releases/download/v2.12.7/ecl-2.12.7.vsix
