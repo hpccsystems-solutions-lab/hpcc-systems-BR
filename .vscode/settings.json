@@ -1,4 +1,5 @@
 {
     "ecl.launchConfiguration": "playground (hpcc-systems-BR)",
-    "ecl.targetCluster": {}
+    "ecl.targetCluster": {},
+    "ecl.eclccPath": "/usr/bin/eclcc"
 }
