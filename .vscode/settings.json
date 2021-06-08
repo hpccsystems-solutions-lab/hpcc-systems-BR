@@ -1,5 +1,3 @@
 {
-    "ecl.launchConfiguration": "playground (hpcc-systems-BR)",
-    "ecl.targetCluster": {},
-    "ecl.eclccPath": "/usr/bin/eclcc"
+    "ecl.forceProxySupport": true
 }
