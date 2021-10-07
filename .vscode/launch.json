@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "playground",
+            "name": "SIEEL2021",
             "type": "ecl",
             "request": "launch",
             "protocol": "http",
