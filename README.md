@@ -9,13 +9,9 @@ ECL course material for community workshops. The training cluster utilized durin
 ```
 cd “C:\Program Files (x86)\HPCCSystems\8.2.20\clienttools\bin” 
 ecl bundle install https://github.com/hpcc-systems/ML_Core.git
-ecl bundle install https://github.com/hpcc-systems/PBblas.git
-ecl bundle install https://github.com/hpcc-systems/KMeans.git
-ecl bundle install https://github.com/hpcc-systems/dbscan.git
-ecl bundle install https://github.com/hpcc-systems/LinearRegression.git
-ecl bundle install https://github.com/hpcc-systems/LogisticRegression.git
-ecl bundle install https://github.com/hpcc-systems/GNN.git
 ecl bundle install https://github.com/hpcc-systems/LearningTrees.git
+ecl bundle install https://github.com/hpcc-systems/Visualizer.git
+ecl bundle install https://github.com/hpcc-systems/DataPatterns.git
 ```
 **Note I**: Alternatively, by using your GitHub credentials, you can try the code examples directly via GitPod: https://gitpod.io/#https://github.com/alysson-oliveira/hpcc-systems-BR
 
