@@ -17,6 +17,6 @@ ecl bundle install https://github.com/hpcc-systems/LogisticRegression.git
 ecl bundle install https://github.com/hpcc-systems/GNN.git
 ecl bundle install https://github.com/hpcc-systems/LearningTrees.git
 ```
-**Note I**: Alternatively, by using your GitHub credentials, you can try the code examples directly via GitPod: https://gitpod.io/#https://github.com/hpcc-systems/Community-Workshops
+**Note I**: Alternatively, by using your GitHub credentials, you can try the code examples directly via GitPod: https://gitpod.io/#https://github.com/alysson-oliveira/hpcc-systems-BR
 
 **Note II**: The properties dataset is already sprayed and available in the training cluster utilized during the workshop and also available in the following link:https://github.com/alysson-oliveira/hpcc-systems-BR/blob/main/Data/propriedades.zip
