@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>ERAD ERAMIA 2021</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" href="https://insider.lexisnexis.com/share/res/favicon.ico">
+  <!-- <script src = "main.js" type='module' defer></script> -->
+</head>
+
+<body>
+  <div class="login-root">
+    <div class="box-root flex-flex flex-direction--column" style="min-height: 100vh;flex-grow: 1;">
+      <div class="loginbackground box-background--white padding-top--64">
+        <div class="loginbackground-gridContainer">
+          <div class="box-root flex-flex" style="grid-area: top / start / 8 / end;">
+            <div class="box-root" style="background-image: linear-gradient(white 0%, rgb(247, 250, 252) 33%); flex-grow: 1;">
+            </div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 4 / 2 / auto / 5;">
+            <div class="box-root box-divider--light-all-2 animationLeftRight tans3s" style="flex-grow: 1;"></div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 6 / start / auto / 2;">
+            <div class="box-root box-background--blue800" style="flex-grow: 1;"></div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 7 / start / auto / 4;">
+            <div class="box-root box-background--blue animationLeftRight" style="flex-grow: 1;"></div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 8 / 4 / auto / 6;">
+            <div class="box-root box-background--gray100 animationLeftRight tans3s" style="flex-grow: 1;"></div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 2 / 15 / auto / end;">
+            <div class="box-root box-background--cyan200 animationRightLeft tans4s" style="flex-grow: 1;"></div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 3 / 14 / auto / end;">
+            <div class="box-root box-background--blue animationRightLeft" style="flex-grow: 1;"></div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 4 / 17 / auto / 20;">
+            <div class="box-root box-background--gray100 animationRightLeft tans4s" style="flex-grow: 1;"></div>
+          </div>
+          <div class="box-root flex-flex" style="grid-area: 5 / 14 / auto / 17;">
+            <div class="box-root box-divider--light-all-2 animationRightLeft tans3s" style="flex-grow: 1;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
+        <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
+          <h1><a rel="dofollow">ERAD ERAMIA 2021</a></h1>
+        </div>
+        <div class="formbg-outer">
+          <div class="formbg">
+            <div class="formbg-inner padding-horizontal--48">
+              <span class="padding-bottom--15">Property value query</span>
+              <form id="stripe-login">
+                <div class="field padding-bottom--24">
+                  <label for="name">Assessed Value</label>
+                  <input type="text" id="assess_val"/>
+                </div>
+                <div class="field padding-bottom--24">
+                  <div class="grid--50-50">
+                    <label for="rating">Bedrooms</label>
+                  </div>
+                  <input type="text" id="bedrooms" />
+                </div>
+                <div class="field padding-bottom--24">
+                  <div class="grid--50-50">
+                    <label for="rating">Full Baths</label>
+                  </div>
+                  <input type="text" id="full_baths" />
+                </div>
+                <div class="field padding-bottom--24">
+                  <div class="grid--50-50">
+                    <label for="rating">Half Baths</label>
+                  </div>
+                  <input type="text" id="half_baths" />
+                </div>
+                <div class="field padding-bottom--24">
+                  <div class="grid--50-50">
+                    <label for="rating">Land Square ft</label>
+                  </div>
+                  <input type="text" id="land_sq_ft" />
+                </div>
+                <div class="field padding-bottom--24">
+                  <div class="grid--50-50">
+                    <label for="rating">Living Square ft</label>
+                  </div>
+                  <input type="text" id="living_sq_ft" />
+                </div>
+                <div class="field padding-bottom--24">
+                  <div class="grid--50-50">
+                    <label for="rating">Year Acquired</label>
+                  </div>
+                  <input type="text" id="year_acq" />
+                </div>
+                <div class="field padding-bottom--24">
+                  <div class="grid--50-50">
+                    <label for="rating">Year Built</label>
+                  </div>
+                  <input type="text" id="year_built" />
+                </div>
+                <div class="field padding-bottom--24">
+                  <div class="grid--50-50">
+                    <label for="rating">ZIP</label>
+                  </div>
+                  <input type="text" id="zip" />
+                </div>
+                <div class="field padding-bottom--24">
+                  <input type="button" id="btn" value="Search">
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="footer-link padding-top--24">
+            <span>Do you want to learn more? <a href="https://learn.lexisnexis.com/Home/Catalog">ECL Courses</a></span>
+            <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
+              <span><a href="#">© RoxieQuery</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+<script>
+
+    const roxieQuery = function() {
+    
+        const assess_val   = document.getElementById('assess_val').value 
+    
+        const bedrooms = document.getElementById('bedrooms').value 
+
+        const full_baths = document.getElementById('full_baths').value
+
+        const half_baths = document.getElementById('half_baths').value
+
+        const land_sq_ft = document.getElementById('land_sq_ft').value
+
+        const living_sq_ft = document.getElementById('living_sq_ft').value
+
+        const year_acq = document.getElementById('year_acq').value
+
+        const year_built = document.getElementById('year_built').value
+
+        const zip = document.getElementById('zip').value
+    
+        const url = encodeURI(`http://52.52.151.87:8002/WsEcl/submit/query/roxie/fn_getprice_roxiequery_web/json?assess_val=${assess_val}&bedrooms=${bedrooms}&full_baths=${full_baths}&half_baths=${half_baths}&land_sq_ft=${land_sq_ft}&living_sq_ft=${living_sq_ft}&year_acq=${year_acq}&year_built=${year_built}&zip=${zip}`)
+    
+        //console.log(url);
+    
+        fetch(url).then(function(response) {
+    
+            return response.json()
+    
+        }).then(function(data) {
+    
+            alert('O preço estimado do imóvel é: ' + data.fn_getprice_roxiequery_webResponse.Results.result_1.Row[0].preco)
+            
+
+        }).catch(function() {
+    
+            alert('Failed to fetch from Roxie');
+    
+        });
+    
+    }
+    
+    document.getElementById('btn').addEventListener('click', roxieQuery)    
+  </script>
