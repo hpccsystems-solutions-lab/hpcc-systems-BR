@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "SIEEL2021",
+            "name": "TrainingCluster",
             "type": "ecl",
             "request": "launch",
             "protocol": "http",
