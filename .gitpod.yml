@@ -1,7 +1,29 @@
-#image: hpccsystems/clienttools
+#image: hpccsystems/platform
+
 image:
   file: .gitpod.Dockerfile
+
+ports:
+  - port: 8010
+    onOpen: open-browser
+    visibility: public
+  - port: 8002
+    onOpen: ignore
+    visibility: public
+  - port: 6000-9999
+    onOpen: ignore
+  - port: 20000
+    onOpen: ignore
+  - port: 20002
+    onOpen: ignore
+  - port: 20100
+    onOpen: ignore
 
 vscode:
   extensions:
     - https://github.com/hpcc-systems/vscode-ecl/releases/latest/download/hpcc-systems.ecl.vsix
+    - https://github.com/GordonSmith/vscode-ojs/releases/latest/download/gordonsmith.observable-js.vsix
+
+tasks:
+  - name: Start HPCC-Systems Platform
+    command: sudo /etc/init.d/hpcc-init start
