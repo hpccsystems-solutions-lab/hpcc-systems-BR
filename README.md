@@ -1,4 +1,5 @@
 # ERAD | ERAMIA 2021 Workshop
+
 ECL course material for community workshops. The training cluster utilized during the workshop is: localhost.
 
 # During the workshop GitPod will be used as main environment:
