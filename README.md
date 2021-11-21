@@ -1,5 +1,6 @@
 # ERAD | ERAMIA 2021 Workshop
-ECL course material for community workshops. The training cluster utilized during the workshop is: http://54.215.2.79:8010/.
+
+ECL course material for community workshops. The training cluster utilized during the workshop is: localhost.
 
 # During the workshop GitPod will be used as main environment:
 1. By using your GitHub credentials, just click on the following link for instantiate a environment via GitPod: https://gitpod.io/#https://github.com/hpccsystems-solutions-lab/hpcc-systems-BR
