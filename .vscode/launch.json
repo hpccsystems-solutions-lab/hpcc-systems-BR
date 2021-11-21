@@ -2,11 +2,25 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "SIEEL2021",
+            "name": "TrainingCluster",
             "type": "ecl",
             "request": "launch",
             "protocol": "http",
             "serverAddress": "54.215.2.79",
+            "port": 8010,
+            "targetCluster": "thor",
+            "rejectUnauthorized": true,
+            "resultLimit": 100,
+            "timeoutSecs": 60,
+            "user": "gitpod_user",
+            "password": ""
+        },
+        {
+            "name": "localhost",
+            "type": "ecl",
+            "request": "launch",
+            "protocol": "http",
+            "serverAddress": "localhost",
             "port": 8010,
             "targetCluster": "thor",
             "rejectUnauthorized": true,

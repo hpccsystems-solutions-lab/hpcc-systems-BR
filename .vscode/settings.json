@@ -1,5 +1,5 @@
 {
     "ecl.forceProxySupport": true,
-    "ecl.launchConfiguration": "SIEEL2021",
+    "ecl.launchConfiguration": "Trainingcluster",
     "ecl.targetCluster": {}
 }
