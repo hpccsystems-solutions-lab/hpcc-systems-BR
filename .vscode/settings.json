@@ -1,5 +1,5 @@
 {
     "ecl.forceProxySupport": true,
-    "ecl.launchConfiguration": "Trainingcluster",
+    "ecl.launchConfiguration": "localhost",
     "ecl.targetCluster": {}
 }
