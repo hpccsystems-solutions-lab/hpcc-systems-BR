@@ -1,4 +1,4 @@
-# ERAD | ERAMIA 2021 Workshop
+# HPCC Systems Workshop
 
 ECL course material for community workshops. The training cluster utilized during the workshop is: localhost.
 
